@@ -15,3 +15,12 @@
 - git parameter
 - docker-build-step
 - AnsiColor
+- http request
+- build user vars
+
+## 常用DSL
+- checkout: Check out from version control
+- withCredentials: Bind credentials to variables
+- publishHtml: publish HTML reports
+- http request
+- build wrap with user
