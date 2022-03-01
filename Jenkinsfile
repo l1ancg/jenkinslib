@@ -64,7 +64,7 @@ pipeline {
                 //           extensions: [],
                 //           gitTool: 'Default',
                 //           submoduleCfg: [],
-                //           userRemoteConfigs: [[url: 'https://gitee.com/gokins/gokins.git']]
+                //           userRemoteConfigs: [[url: 'https://gitee.com/284520459/redis-monitor.git']]
                 //         ])
             }
         }
