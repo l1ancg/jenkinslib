@@ -96,6 +96,9 @@ pipeline {
                         println('代码扫描')
 
                         tools.PrintMsg("print at my lib")
+                        tools.PrintMsg("print at my lib with red", "red")
+                        tools.PrintMsg("print at my lib with green", "green")
+                        tools.PrintMsg("print at my lib with green2", "green2")
                     }
                 }
             }
