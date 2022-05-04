@@ -1,0 +1,86 @@
+String workspace = "/opt/jenkins/workspace"
+
+pipeline {
+    // agent any
+    agent {
+        node {
+            label "master"                 // 指定工作节点(在manage nodes and clouds设置节点标签)
+            customWorkspace "${workspace}" // 指定运行工作目录
+        }
+    }
+
+    options {
+        timestamps()                      // 日志会有时间(插件Timestamper)
+        skipDefaultCheckout()             // 删除隐式checkout scm语句
+        disableConcurrentBuilds()         // 禁止并行
+        timeout(time:1, unit: 'HOURS')    // 流水线超时设置1h
+        retry(1)                          // 失败重试次数
+    }   
+
+    stages {
+        stage("get-code") { // 阶段名称
+            steps { // 步骤
+                script {
+                    println('开始获取代码')
+                    
+                }
+            }
+        }
+        stage("build") {
+            steps {
+                script {
+                    println('开始打包')
+                }
+            }
+        }
+        stage("code-scan") {
+            steps {
+                timeout(time: 10, unit: "SECONDS") {
+                    script {
+                        println('代码扫描')
+                    }
+                }
+            }
+        }
+        stage("after-code-scan") {
+            failFast true
+            parallel { // 并行执行
+                stage('send-report') {
+                    steps { // 执行内容
+                        echo '发送扫描报告'
+                    }
+                }
+                stage('save-report') {
+                    steps {
+                        echo '保存扫描报告'   
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        always { // 总是执行
+            script {
+                println("always")
+            }
+        }
+        success { // 成功后执行
+            script {
+                // currentBuild：一个全局的变量
+                // description：构建的描述
+                currentBuild.description = "\n 构建成功"
+            }
+        }
+        failure { // 失败后执行
+            script {
+                currentBuild.description = "\n 构建失败"
+            }
+        }
+        aborted { // 取消后执行
+            script {
+                currentBuild.description = "\n 构建取消"
+            }
+        }
+    }
+}

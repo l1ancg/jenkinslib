@@ -52,6 +52,11 @@ pipeline {
     stages {
         stage("get-code") { // 阶段名称
             steps { // 步骤
+
+            withCredentials([usernamePassword(credentialsId: 'bddb0cfb-e1a9-4333-9ee5-4ac082294a23', passwordVariable: 'pass', usernameVariable: 'user')]) {
+                // some block
+                
+            }
                 echo '获取代码'
                 script {
                     println(env_var)
