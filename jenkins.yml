@@ -5,7 +5,7 @@ services:
     container_name: jenkins
     user: root
     volumes:
-    - ~/docker/data/jenkins/jenkins_home:/var/jenkins_home
+    - ./data/jenkins_home:/var/jenkins_home
     ports:
     - 8080:8080
     - 50000:50000
